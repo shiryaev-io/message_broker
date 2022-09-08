@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  message_brocker:
+    container_name: message_brocker
+    image: rabbitmq:3.10-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - service_network
+
+networks:
+  service_network:
+    driver: bridge
