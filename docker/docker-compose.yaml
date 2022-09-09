@@ -4,12 +4,15 @@ services:
   message_brocker:
     container_name: message_brocker
     image: rabbitmq:3.10-management-alpine
+    env_file: .env
     ports:
       - 5672:5672
-      - 15672:15672
+      - "${MANAGEMENT_PORT}:${MANAGEMENT_PORT}" # TODO: потом скорее всего удалить
     networks:
-      - service_network
+      - mb_network
 
 networks:
-  service_network:
-    driver: bridge
+  mb_network:
+    # Добавляется название сети, чтобы другие проекты с docker-compose 
+    # могли видеть докер с текущей сетью
+    name: services_network
